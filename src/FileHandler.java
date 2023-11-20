@@ -8,7 +8,7 @@ public class FileHandler {
         this.filePath = filePath;
     }
 
-    // Customer 정보 파일에 저장하기
+    // Customer 정보 파일에 저장
     public void saveCustomerInfo(Customer customer) {
         try {
             FileWriter writer = new FileWriter(filePath, true);
