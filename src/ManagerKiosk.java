@@ -60,6 +60,9 @@ public class ManagerKiosk extends JFrame {
         salesPanel.add(detailsButton, BorderLayout.SOUTH);
         mainPanel.add(salesPanel, BorderLayout.SOUTH);
 
+        // '자세히 보기' 버튼에 대한 이벤트 리스너 추가
+        detailsButton.addActionListener(e -> showSalesDetails());
+
         // 프레임에 메인 패널 추가
         add(mainPanel);
         setVisible(true);
@@ -68,8 +71,28 @@ public class ManagerKiosk extends JFrame {
     // 각 카테고리 별 메뉴 패널 생성
     private JPanel createMenuPanel(String category) {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        for (int i = 1; i <= 5; i++) {
-            String menuItem = category + " 메뉴 " + i;
+
+        // 각 카테고리별 실제 메뉴 이름 정의
+        String[] menuItems;
+        switch (category) {
+            case "커피":
+                menuItems = new String[]{"아메리카노", "에스프레소", "카푸치노", "카페라떼", "모카"};
+                break;
+            case "라떼":
+                menuItems = new String[]{"바닐라 라떼", "카라멜 라떼", "말차 라떼", "고구마 라떼", "허니 라떼"};
+                break;
+            case "프라페":
+                menuItems = new String[]{"모카 프라페", "카라멜 프라페", "민트 초콜릿 프라페", "자몽 프라페", "딸기 프라페"};
+                break;
+            case "디저트":
+                menuItems = new String[]{"치즈 케이크", "타르트", "마카롱", "머핀", "크루아상"};
+                break;
+            default:
+                menuItems = new String[]{"메뉴 1", "메뉴 2", "메뉴 3", "메뉴 4", "메뉴 5"};
+        }
+
+        // 메뉴 항목 별 패널 생성
+        for (String menuItem : menuItems) {
             JPanel itemPanel = new JPanel(new BorderLayout());
             itemPanel.add(new JLabel(menuItem), BorderLayout.CENTER);
 
@@ -126,6 +149,61 @@ public class ManagerKiosk extends JFrame {
         }
         soldOutPanel.revalidate();
         soldOutPanel.repaint();
+    }
+    private void showSalesDetails() {
+        JFrame detailsFrame = new JFrame("매출 상세 정보");
+        detailsFrame.setSize(500, 400);
+        detailsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // 새 창만 닫히게 설정
+
+        JPanel detailsPanel = new JPanel();
+        detailsPanel.setLayout(new BorderLayout());
+
+        // 메뉴와 판매 수량을 표시할 패널
+        JPanel menuPanel = new JPanel();
+        menuPanel.setLayout(new GridLayout(0, 2)); // 2열 그리드 레이아웃
+
+        String[] categories = {"커피", "라떼", "프라페", "디저트"};
+        for (String category : categories) {
+            String[] menuItems = getMenuItems(category);
+            for (String item : menuItems) {
+                menuPanel.add(new JLabel(item));
+                menuPanel.add(new JLabel("판매 수량: " + getSalesCount(item))); // 임시 판매 수량
+            }
+        }
+
+        // 하루 매출을 표시할 레이블
+        JLabel totalSalesLabel = new JLabel("하루 매출: " + getDailySales()); // 임시 하루 매출
+        totalSalesLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        detailsPanel.add(new JScrollPane(menuPanel), BorderLayout.CENTER);
+        detailsPanel.add(totalSalesLabel, BorderLayout.SOUTH);
+
+        detailsFrame.add(detailsPanel);
+        detailsFrame.setVisible(true);
+    }
+    private String[] getMenuItems(String category) {
+        // 각 카테고리별 메뉴 아이템을 배열로 반환
+        switch (category) {
+            case "커피":
+                return new String[]{"아메리카노", "에스프레소", "카푸치노", "카페라떼", "모카"};
+            case "라떼":
+                return new String[]{"바닐라 라떼", "카라멜 라떼", "말차 라떼", "고구마 라떼", "허니 라떼"};
+            case "프라페":
+                return new String[]{"모카 프라페", "카라멜 프라페", "민트 초콜릿 프라페", "자몽 프라페", "딸기 프라페"};
+            case "디저트":
+                return new String[]{"치즈 케이크", "타르트", "마카롱", "머핀", "크루아상"};
+            default:
+                return new String[]{};
+        }
+    }
+    private int getSalesCount(String item) {
+        // 메뉴 아이템별 판매 수량을 반환 (임시 데이터)
+        return (int) (Math.random() * 100); // 임의의 판매 수량
+    }
+
+    private String getDailySales() {
+        // 하루 매출 금액을 반환 (임시 데이터)
+        return "100,000원";
     }
 
     public static void main(String[] args) {
