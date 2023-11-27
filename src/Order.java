@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
+//내가 할것
 public class Order {
     private List<MenuItem> items; // 주문 아이템 리스트
     private String status; // 주문 상태
