@@ -17,7 +17,14 @@ public class ManagerKiosk extends JFrame {
 
         // 카테고리 패널 설정
         JPanel categoryPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        String[] categories = {"커피", "라떼", "프라페", "디저트"};
+        String[] categories = {"커피", "라떼", "에이드/스무디", "티"};
+
+        // 고객 모드로 전환하는 버튼 추가
+        JButton switchModeButton = new JButton("관리자");
+        switchModeButton.setBackground(Color.ORANGE); // 버튼 배경을 주황색으로 설정
+        switchModeButton.setForeground(Color.WHITE); // 버튼 글자를 흰색으로 설정
+        categoryPanel.add(switchModeButton);
+
         mainPanel.add(categoryPanel, BorderLayout.NORTH);
 
         // 카드 레이아웃 패널 설정
@@ -63,6 +70,7 @@ public class ManagerKiosk extends JFrame {
         // '자세히 보기' 버튼에 대한 이벤트 리스너 추가
         detailsButton.addActionListener(e -> showSalesDetails());
 
+
         // 프레임에 메인 패널 추가
         add(mainPanel);
         setVisible(true);
@@ -76,16 +84,16 @@ public class ManagerKiosk extends JFrame {
         String[] menuItems;
         switch (category) {
             case "커피":
-                menuItems = new String[]{"아메리카노", "에스프레소", "카푸치노", "카페라떼", "모카"};
+                menuItems = new String[]{"아메리카노", "헤이즐넛 아메리카노", "카푸치노", "에스프레소", "카페모카"};
                 break;
             case "라떼":
-                menuItems = new String[]{"바닐라 라떼", "카라멜 라떼", "말차 라떼", "고구마 라떼", "허니 라떼"};
+                menuItems = new String[]{"바닐라 라떼", "카페 라떼", "녹차 라떼", "딸기 라떼"};
                 break;
-            case "프라페":
-                menuItems = new String[]{"모카 프라페", "카라멜 프라페", "민트 초콜릿 프라페", "자몽 프라페", "딸기 프라페"};
+            case "에이드/스무디":
+                menuItems = new String[]{"레몬에이드", "딸기스무디", "블루베리스무디", "망고스무디", "딸기바나나주스"};
                 break;
-            case "디저트":
-                menuItems = new String[]{"치즈 케이크", "타르트", "마카롱", "머핀", "크루아상"};
+            case "티":
+                menuItems = new String[]{"아이스티", "밀크티", "얼그레이", "캐모마일", "유자차", "허니자몽밀크티", "흑당밀크티"};;
                 break;
             default:
                 menuItems = new String[]{"메뉴 1", "메뉴 2", "메뉴 3", "메뉴 4", "메뉴 5"};
