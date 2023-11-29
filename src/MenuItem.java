@@ -35,6 +35,11 @@ public class MenuItem {
         this.inventory = inventory;
     }
 
+    //메뉴 아이템 품절처리 위한 메서드
+    public void setQuantity(int i) {
+        inventory = i;
+    }
+
     // 재고를 줄이는 메서드
     public void decreaseInventory(int amount) {
         if (inventory >= amount) {
@@ -49,7 +54,14 @@ public class MenuItem {
         inventory += amount;
     }
 
-    public void setQuantity(int i) {
-        inventory = i;
+    // 재고가 있는지 확인하는 메서드
+    public boolean isAvailable() {
+        return inventory > 0;
+    }
+
+    // MenuItem 객체를 문자열로 변환하는 메서드
+    @Override
+    public String toString() {
+        return "MenuItem{name='" + name + "', price=" + price + ", inventory=" + inventory + "}";
     }
 }

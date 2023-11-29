@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -40,7 +41,7 @@ public class CafeGUI extends JFrame{
 
         setVisible(true);
     }
-    //모든 패널들을 담아놓은 패널
+    //��� �гε��� ��Ƴ��� �г�
     class MainPanel extends JPanel{
         public MainPanel() {
             setLayout(null);
@@ -61,7 +62,7 @@ public class CafeGUI extends JFrame{
             add(PP=new PurchasePanel());
         }
     }
-    //카테고리 선택을 위한 RadioButton이 담긴 패널
+    //ī�װ� ������ ���� RadioButton�� ��� �г�
     class CategoryPanel extends JPanel implements ActionListener {
         public CategoryPanel() {
             setSize(600,100);
@@ -90,12 +91,12 @@ public class CafeGUI extends JFrame{
             Category4.setBounds(350,0,50,25);
             Category5.setBounds(450,0,50,25);
 
-//			ImageIcon icon1=new ImageIcon("C:\\Users\\oossy\\OneDrive\\바탕 화면\\커피.png");
+//			ImageIcon icon1=new ImageIcon("C:\\Users\\oossy\\OneDrive\\���� ȭ��\\Ŀ��.png");
 //  		Category1.setIcon(icon1);
 
             Category1.setSelected(true);
         }
-        //카테고리 변경
+        //ī�װ� ����
         public void actionPerformed(ActionEvent e) {
             if(e.getSource()==Category1) {
                 CP.setVisible(true);
@@ -106,14 +107,14 @@ public class CafeGUI extends JFrame{
             }
         }
     }
-    //커피류 메뉴를 담기위한 패널. 다른 메뉴를 위한 패널 추가 필요
+    //Ŀ�Ƿ� �޴��� ������� �г�. �ٸ� �޴��� ���� �г� �߰� �ʿ�
     class CoffeePanel extends JPanel{
         public CoffeePanel() {
             setSize(600,350);
             setLocation(50,150);
             setLayout(new GridLayout(2,4,10,10));
-            add(new Item("아메리카노",2000));
-            add(new Item("카푸치노",3000));
+            add(new Item("�Ƹ޸�ī��",2000));
+            add(new Item("īǪġ��",3000));
             add(new Item("A",1500));
             add(new Item("A",4000));
             add(new Item("A",5000));
@@ -122,7 +123,7 @@ public class CafeGUI extends JFrame{
             add(new Item("A",0));
         }
     }
-    //리스너 작동 테스트를 위해 임시로 만든 패널. 추후 삭제
+    //������ �۵� �׽�Ʈ�� ���� �ӽ÷� ���� �г�. ���� ����
     class TestPanel extends JPanel{//Test
         public TestPanel() {
             setSize(600,350);
@@ -133,7 +134,7 @@ public class CafeGUI extends JFrame{
             button.setBounds(300,300,10,10);
         }
     }
-    //장바구니 패널, 기능 구현 필요함
+    //��ٱ��� �г�, ��� ���� �ʿ���
     class BuyPanel extends JPanel{
         public BuyPanel() {
             setSize(200,500);
@@ -141,7 +142,7 @@ public class CafeGUI extends JFrame{
             setLayout(null);
 
             setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            JLabel label=new JLabel("장바구니");//Border, Label 중 선택
+            JLabel label=new JLabel("��ٱ���");//Border, Label �� ����
             label.setFont(new Font("Dialog",Font.PLAIN,40));
             label.setBounds(20,10,180,50);
             add(label);
@@ -149,18 +150,18 @@ public class CafeGUI extends JFrame{
             add(TP=new totalPanel());
             TP.setLocation(10,350);
 
-            purchaseButton=new JButton("결제하기");
+            purchaseButton=new JButton("�����ϱ�");
             purchaseButton.setBounds(10,430,180,50);
             purchaseButton.addActionListener(e-> {
                 if(Price!=0){
                     CL.next(cPane);
                 }else{
-                    System.out.println("선택된 메뉴가 없습니다.");
+                    System.out.println("���õ� �޴��� �����ϴ�.");
                 }
             });
             add(purchaseButton);
         }
-        //현재 총 금액을 표시하기 위한 패널
+        //���� �� �ݾ��� ǥ���ϱ� ���� �г�
         class totalPanel extends JPanel{
             public totalPanel() {
                 setSize(180,50);
@@ -169,7 +170,7 @@ public class CafeGUI extends JFrame{
                 JLabel Total=new JLabel("Total");
                 add(Total);
                 Total.setBounds(10,15,50,25);
-                add(totalPrice=new JLabel(Price+"원"));
+                add(totalPrice=new JLabel(Price+"��"));
                 totalPrice.setBounds(100,15,180,25);
                 Border TestBorder=BorderFactory.createLineBorder(Color.ORANGE);
                 setBorder(TestBorder);
@@ -177,7 +178,7 @@ public class CafeGUI extends JFrame{
         }
 
     }
-    //결제수단 선택 화면
+    //�������� ���� ȭ��
     class PurchasePanel extends JPanel implements ActionListener{
         JButton Card;
         JButton Cash;
@@ -187,7 +188,7 @@ public class CafeGUI extends JFrame{
             setLocation(50,20);
             setLayout(null);
 
-            JLabel label=new JLabel("결제수단");
+            JLabel label=new JLabel("��������");
             label.setBounds(390,20,200,30);
             label.setFont(new Font("Dialog",Font.PLAIN,30));
             add(label);
@@ -206,13 +207,13 @@ public class CafeGUI extends JFrame{
             add(Card);
             add(Cash);
 
-            JButton purchaseButton_last=new JButton("결제하기");
+            JButton purchaseButton_last=new JButton("�����ϱ�");
             purchaseButton_last.addActionListener(e->{
                 if(Card.getBackground()==Color.ORANGE||Cash.getBackground()==Color.ORANGE){
                     CL.next(cPane);
                     p.start();
                 }else{
-                    System.out.println("결제 수단을 선택해주세요.");
+                    System.out.println("���� ������ �������ּ���.");
                 }
             });
             add(purchaseButton_last);
@@ -231,52 +232,52 @@ public class CafeGUI extends JFrame{
             }
         }
     }
-    //결제 로딩 화면
+    //���� �ε� ȭ��
     class PurchasingPanel extends JPanel{
         public PurchasingPanel() {
             setLayout(null);
             setSize(900,500);
             setLocation(50,20);
 
-            add(purchasingLabel=new JLabel("결제 중"));
+            add(purchasingLabel=new JLabel("���� ��"));
             purchasingLabel.setFont(new Font("Dialog",Font.PLAIN,50));
             purchasingLabel.setBounds(350,300,250,50);
         }
 
     }
-    //화면을 움직이기 위해 임시로 만든 쓰레드. 필요할 경우 수정
+    //ȭ���� �����̱� ���� �ӽ÷� ���� ������. �ʿ��� ��� ����
     class purchasing extends Thread{
         public void run() {
             for(int i=0;i<2;i++) {
-                purchasingLabel.setText("결제 중.");
+                purchasingLabel.setText("���� ��.");
                 try {Thread.sleep(500);}catch(InterruptedException e) {}
-                purchasingLabel.setText("결제 중..");
+                purchasingLabel.setText("���� ��..");
                 try {Thread.sleep(500);}catch(InterruptedException e) {}
-                purchasingLabel.setText("결제 중...");
+                purchasingLabel.setText("���� ��...");
                 try {Thread.sleep(500);}catch(InterruptedException e) {}
             }
             CL.next(cPane);
         }
     }
-    //결제 완료 화면
+    //���� �Ϸ� ȭ��
     class Complete extends JPanel{
         public Complete() {
             setSize(900,500);
             setLocation(50,20);
             setLayout(null);
 
-            JLabel complete=new JLabel("결제 완료!");
+            JLabel complete=new JLabel("���� �Ϸ�!");
             complete.setFont(new Font("Dialog", Font.BOLD,40));
             complete.setBounds(400,30,250,50);
             add(complete);
 
-            JLabel WaitingNum=new JLabel("대기 번호:");
+            JLabel WaitingNum=new JLabel("��� ��ȣ:");
             WaitingNum.setFont(new Font("Dialog",Font.PLAIN,40));
             WaitingNum.setBounds(250,300,250,50);
             add(WaitingNum);
 
             JLabel NumberLabel=new JLabel();
-            NumberLabel.setText(Number+"번");
+            NumberLabel.setText(Number+"��");
             NumberLabel.setFont(new Font("Dialog",Font.BOLD,50));
             NumberLabel.setForeground(Color.RED);
             NumberLabel.setBounds(500,300,500,50);
@@ -284,8 +285,8 @@ public class CafeGUI extends JFrame{
 
         }
     }
-    //메뉴 품목 클래스
-    public class Item extends JPanel implements ActionListener{
+    //�޴� ǰ�� Ŭ����
+    class Item extends JPanel implements ActionListener{
         String name;
         int price;
         int amount=0;
@@ -321,20 +322,20 @@ public class CafeGUI extends JFrame{
 
             setBorder(BorderFactory.createLineBorder(Color.BLACK));
         }
-        //메뉴 추가, 삭제 버튼 리스너
+        //�޴� �߰�, ���� ��ư ������
         public void actionPerformed(ActionEvent e){
             if(e.getSource()==minus){
                 if(amount>0){
                     amount--;
                     Amount.setText(amount+"");
                     Price-=this.price;
-                    totalPrice.setText(Price+"원");
+                    totalPrice.setText(Price+"��");
                 }
             }else if(e.getSource()==plus){
                 amount++;
                 Amount.setText(amount+"");
                 Price+=this.price;
-                totalPrice.setText(Price+"원");
+                totalPrice.setText(Price+"��");
             }
         }
     }
@@ -343,3 +344,4 @@ public class CafeGUI extends JFrame{
     }
 
 }
+
