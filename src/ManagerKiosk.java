@@ -1,16 +1,21 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.*;
+import java.util.List;
 
 public class ManagerKiosk extends JFrame {
 
     private JPanel soldOutPanel; // 품절 표시된 항목을 보여줄 패널
     private JTextField salesField; // 매출 금액을 보여줄 텍스트 필드
+    Menu menu;
 
     public ManagerKiosk() {
+        menu = new Menu();
         setTitle("매니저 전용 키오스크");
         setSize(1000, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
         // 메인 패널 설정
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -28,13 +33,15 @@ public class ManagerKiosk extends JFrame {
         mainPanel.add(categoryPanel, BorderLayout.NORTH);
 
         // 카드 레이아웃 패널 설정
+
         JPanel cardPanel = new JPanel(new CardLayout());
         mainPanel.add(cardPanel, BorderLayout.CENTER);
 
         // 각 카테고리에 대한 패널 추가
-        for (String category : categories) {
-            cardPanel.add(createMenuPanel(category), category);
-        }
+        cardPanel.add(createMenuPanel(menu.getCoffeeItems()), "커피");
+        cardPanel.add(createMenuPanel(menu.getLatteItems()), "라떼");
+        cardPanel.add(createMenuPanel(menu.getAdeSmoothieItems()), "에이드/스무디");
+        cardPanel.add(createMenuPanel(menu.getTeaItems()), "티");
 
         // 카테고리 버튼 설정 및 액션 리스너 추가
         for (String category : categories) {
@@ -77,37 +84,18 @@ public class ManagerKiosk extends JFrame {
     }
 
     // 각 카테고리 별 메뉴 패널 생성
-    private JPanel createMenuPanel(String category) {
+    private JPanel createMenuPanel(List<MenuItem> menuItems) {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
 
-        // 각 카테고리별 실제 메뉴 이름 정의
-        String[] menuItems;
-        switch (category) {
-            case "커피":
-                menuItems = new String[]{"아메리카노", "헤이즐넛 아메리카노", "카푸치노", "에스프레소", "카페모카"};
-                break;
-            case "라떼":
-                menuItems = new String[]{"바닐라 라떼", "카페 라떼", "녹차 라떼", "딸기 라떼"};
-                break;
-            case "에이드/스무디":
-                menuItems = new String[]{"레몬에이드", "딸기스무디", "블루베리스무디", "망고스무디", "딸기바나나주스"};
-                break;
-            case "티":
-                menuItems = new String[]{"아이스티", "밀크티", "얼그레이", "캐모마일", "유자차", "허니자몽밀크티", "흑당밀크티"};;
-                break;
-            default:
-                menuItems = new String[]{"메뉴 1", "메뉴 2", "메뉴 3", "메뉴 4", "메뉴 5"};
-        }
-
         // 메뉴 항목 별 패널 생성
-        for (String menuItem : menuItems) {
+        for (MenuItem menuItem : menuItems) {
             JPanel itemPanel = new JPanel(new BorderLayout());
-            itemPanel.add(new JLabel(menuItem), BorderLayout.CENTER);
+            itemPanel.add(new JLabel(menuItem.getName()), BorderLayout.CENTER);
 
             JButton soldOutButton = new JButton("품절 표시");
             soldOutButton.setBackground(Color.RED);
             soldOutButton.setForeground(Color.WHITE);
-            soldOutButton.addActionListener(new SoldOutActionListener(menuItem, soldOutButton));
+            soldOutButton.addActionListener(new SoldOutActionListener(menuItem.getName(), soldOutButton));
             itemPanel.add(soldOutButton, BorderLayout.SOUTH);
 
             panel.add(itemPanel);
@@ -170,14 +158,11 @@ public class ManagerKiosk extends JFrame {
         JPanel menuPanel = new JPanel();
         menuPanel.setLayout(new GridLayout(0, 2)); // 2열 그리드 레이아웃
 
-        String[] categories = {"커피", "라떼", "프라페", "디저트"};
-        for (String category : categories) {
-            String[] menuItems = getMenuItems(category);
-            for (String item : menuItems) {
-                menuPanel.add(new JLabel(item));
-                menuPanel.add(new JLabel("판매 수량: " + getSalesCount(item))); // 임시 판매 수량
-            }
-        }
+        // 메뉴 항목 추가
+        addMenuItemsToPanel(menu.getCoffeeItems(), menuPanel);
+        addMenuItemsToPanel(menu.getLatteItems(), menuPanel);
+        addMenuItemsToPanel(menu.getAdeSmoothieItems(), menuPanel);
+        addMenuItemsToPanel(menu.getTeaItems(), menuPanel);
 
         // 하루 매출을 표시할 레이블
         JLabel totalSalesLabel = new JLabel("하루 매출: " + getDailySales()); // 임시 하루 매출
@@ -189,19 +174,11 @@ public class ManagerKiosk extends JFrame {
         detailsFrame.add(detailsPanel);
         detailsFrame.setVisible(true);
     }
-    private String[] getMenuItems(String category) {
-        // 각 카테고리별 메뉴 아이템을 배열로 반환
-        switch (category) {
-            case "커피":
-                return new String[]{"아메리카노", "에스프레소", "카푸치노", "카페라떼", "모카"};
-            case "라떼":
-                return new String[]{"바닐라 라떼", "카라멜 라떼", "말차 라떼", "고구마 라떼", "허니 라떼"};
-            case "프라페":
-                return new String[]{"모카 프라페", "카라멜 프라페", "민트 초콜릿 프라페", "자몽 프라페", "딸기 프라페"};
-            case "디저트":
-                return new String[]{"치즈 케이크", "타르트", "마카롱", "머핀", "크루아상"};
-            default:
-                return new String[]{};
+
+    private void addMenuItemsToPanel(List<MenuItem> items, JPanel panel) {
+        for (MenuItem item : items) {
+            panel.add(new JLabel(item.getName()));
+            panel.add(new JLabel("판매 수량: " + getSalesCount(item.getName()))); // 임시 판매 수량
         }
     }
     private int getSalesCount(String item) {
