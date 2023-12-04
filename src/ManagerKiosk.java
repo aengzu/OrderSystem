@@ -6,6 +6,7 @@ import java.util.List;
 
 public class ManagerKiosk extends JFrame {
 
+    FileHandler fileHandler = new FileHandler("CustomerInfo.text"); // 고객 정보를 불러오는 FileHandler 인스턴스
     private JPanel soldOutPanel; // 품절 표시된 항목을 보여줄 패널
     private JTextField salesField; // 매출 금액을 보여줄 텍스트 필드
     Menu menu;
@@ -81,6 +82,13 @@ public class ManagerKiosk extends JFrame {
         // 프레임에 메인 패널 추가
         add(mainPanel);
         setVisible(true);
+
+        // 고객 정보를 출력하는 버튼 추가
+        JButton customerInfoButton = new JButton("고객 정보 출력");
+        customerInfoButton.setBackground(Color.BLUE);
+        customerInfoButton.setForeground(Color.WHITE);
+        customerInfoButton.addActionListener(e -> showAllCustomerInfo());
+        categoryPanel.add(customerInfoButton);
     }
 
     // 각 카테고리 별 메뉴 패널 생성
@@ -189,6 +197,20 @@ public class ManagerKiosk extends JFrame {
     private String getDailySales() {
         // 하루 매출 금액을 반환 (임시 데이터)
         return "100,000원";
+    }
+
+    // 모든 고객 정보를 출력
+    private void showAllCustomerInfo() {
+        List<Customer> customers = fileHandler.loadAllCustomerInfo();
+        if (!customers.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (Customer customer : customers) {
+                sb.append("이름: ").append(customer.getName()).append(", 전화번호: ").append(customer.getPhoneNum()).append("\n");
+            }
+            JOptionPane.showMessageDialog(this, sb.toString());
+        } else {
+            JOptionPane.showMessageDialog(this, "불러올 고객 정보가 없습니다.");
+        }
     }
 
     public static void main(String[] args) {
