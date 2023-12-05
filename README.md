@@ -1,6 +1,7 @@
 # OrderSystem
 
 카페에서 음료 주문을 위한 키오스크 GUI 를 매니저와 고객 시점에서 java swing 으로 구현한 프로젝트입니다.
+<br/>
 This is a project that implemented a kiosk GUI for ordering drinks in a cafe using Java Swing from the manager and customer perspectives.
 
 
