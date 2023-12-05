@@ -27,10 +27,12 @@ public class CafeManager {
         return totalSales;
     }
 
-//    // 주문을 추가하는 메소드
-//    public void addOrder(Order order) {
-//        this.orders.add(order);
-//    }
+    // 주문을 추가하는 메소드
+    public void addOrder(Order order) {
+       this.orders.add(order);
+    }
+
+
 
     // getter 메소드
     public List<MenuItem> getMenu() {

@@ -2,12 +2,14 @@ public class MenuItem {
     private String name; // 아이템의 이름
     private int price; // 아이템의 가격
     private int inventory; // 아이템의 재고량
+    private int amount; // 아이템의 수량
 
     // 생성자
     public MenuItem(String name, int price, int inventory) {
         this.name = name;
         this.price = price;
         this.inventory = inventory;
+        this.setAmount(0);
     }
 
     // getter & setter 메서드들
@@ -33,6 +35,14 @@ public class MenuItem {
 
     public void setInventory(int inventory) {
         this.inventory = inventory;
+    }
+
+    public int getAmount() {
+        return this.amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     //메뉴 아이템 품절처리 위한 메서드

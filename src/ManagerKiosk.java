@@ -39,20 +39,7 @@ public class ManagerKiosk extends JFrame {
         mainPanel.add(cardPanel, BorderLayout.CENTER);
 
         // 각 카테고리에 대한 패널 추가
-        cardPanel.add(createMenuPanel(menu.getCoffeeCategory().getItems()), "커피");
-        cardPanel.add(createMenuPanel(menu.getLatteCategory().getItems()), "라떼");
-        cardPanel.add(createMenuPanel(menu.getSmoothieCategory().getItems()), "에이드/스무디");
-        cardPanel.add(createMenuPanel(menu.getTeaCategory().getItems()), "티");
 
-        // 카테고리 버튼 설정 및 액션 리스너 추가
-        for (String category : categories) {
-            JButton button = new JButton(category);
-            button.addActionListener(e -> {
-                CardLayout cl = (CardLayout) (cardPanel.getLayout());
-                cl.show(cardPanel, category);
-            });
-            categoryPanel.add(button);
-        }
 
         // 품절 표시 패널 설정
         soldOutPanel = new JPanel();
@@ -166,11 +153,7 @@ public class ManagerKiosk extends JFrame {
         JPanel menuPanel = new JPanel();
         menuPanel.setLayout(new GridLayout(0, 2)); // 2열 그리드 레이아웃
 
-        // 메뉴 항목 추가
-        addMenuItemsToPanel(menu.getCoffeeCategory().getItems(), menuPanel);
-        addMenuItemsToPanel(menu.getLatteCategory().getItems(), menuPanel);
-        addMenuItemsToPanel(menu.getSmoothieCategory().getItems(), menuPanel);
-        addMenuItemsToPanel(menu.getTeaCategory().getItems(), menuPanel);
+
 
         // 하루 매출을 표시할 레이블
         JLabel totalSalesLabel = new JLabel("하루 매출: " + getDailySales()); // 임시 하루 매출

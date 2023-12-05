@@ -17,4 +17,8 @@ public class Payment {
         int totalAmount = order.calculateTotal();
         System.out.println("현금으로 " + totalAmount + "원을 결제하였습니다.");
     }
+
+    public Order getOrder(){
+        return this.order;
+    }
 }
