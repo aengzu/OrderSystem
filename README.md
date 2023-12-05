@@ -8,7 +8,7 @@ This is a project that implemented a kiosk GUI for ordering drinks in a cafe usi
 - 팀원 : 이동현, 전영주, 이준협, 오승영
 
 ## Tech Stack
-JAVA, Figma(디자인 프로토타입)
+
 <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=OpenJDK&logoColor=white"/>
 <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=OpenJDK&logoColor=white"/>
 
