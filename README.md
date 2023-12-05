@@ -15,6 +15,7 @@ This is a project that implemented a kiosk GUI for ordering drinks in a cafe usi
 <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=OpenJDK&logoColor=white"/>
 
 ## :dart: FIGMA DESIGN
+피그마 플로우차트를 통해 전체적인 디자인과 흐름을 파악하고자 했습니다.
 <img width="815" alt="스크린샷 2023-11-29 오전 11 22 13" src="https://github.com/aengzu/OrderSystem/assets/102356873/a9139dc1-4f08-4b39-b5b5-300951759a52">
 
 피그마 플로우차트 Flowchart: 
@@ -22,7 +23,7 @@ https://www.figma.com/proto/CCiRVATSnUT7DpQzKbNxfY/order_system?type=design&node
 
 
 ## :camera: ScreenShot
-
+자바 Swing 으로 구현한 고객 시점 키오스크 화면들입니다.
 <img width="999" alt="스크린샷 2023-12-05 오후 3 25 04" src="https://github.com/aengzu/OrderSystem/assets/102356873/86a1f038-803d-48ab-8f5a-cba8d6ca1d2d">
 <img width="1003" alt="스크린샷 2023-12-05 오후 3 25 32" src="https://github.com/aengzu/OrderSystem/assets/102356873/c3e13b60-3ee6-4273-a738-976cb4a7a8b0">
 <img width="890" alt="스크린샷 2023-12-05 오후 3 25 57" src="https://github.com/aengzu/OrderSystem/assets/102356873/e50d2008-6e4d-4cf1-9f48-2d89698a838a">
