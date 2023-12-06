@@ -48,9 +48,11 @@ class PurchasePanel extends JPanel {
         JButton CancelButton = new JButton("Cancel");
         CancelButton.setBounds(800, 10, 80, 30);
         CancelButton.addActionListener(e -> {
-            cardlayout.previous(cPane);
-            CardButton.setBackground(null);
-            CashButton.setBackground(null);
+            dispose();
+            new CafeGUI();
+            //cardlayout.previous(cPane);
+            //CardButton.setBackground(null);
+            //CashButton.setBackground(null);
         });
         add(CancelButton);
 

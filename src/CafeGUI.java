@@ -35,7 +35,6 @@ public class CafeGUI extends JFrame {
 
             setLayout(null);
             // setSize(800, 600);
-
             //메뉴를 선택할 수 있는 패널
             menu_panel = new MenuPanel();
             // TODO: 스크롤 기능 구현해야함
@@ -85,24 +84,29 @@ public class CafeGUI extends JFrame {
         JLabel item_name, item_price;
         JTextField AmountTextField;
         JButton MinusButton, PlusButton;
+        // menuItem 을 파라미터로 넣어주면 그에 대한 아이템 패널을 생성해주는 패널
+        // 아이템 패널 : 아이템 이름 + 가격 + 수량칸 + + 버튼 + -버튼
         public ItemPanel(MenuItem menuItem) {
             setSize(140, 150);
             setLayout(null);
             setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            // 아이템의 이름
             item_name = new JLabel(menuItem.getName());
             add(item_name);
             item_name.setBounds(20, 0, 140, 30);
 
+            // 아이템의 가격
             item_price = new JLabel(menuItem.getPrice() + "");
             add(item_price,BorderLayout.CENTER);
             item_price.setBounds(50, 50, 50, 30);
 
+            //아이템의 수량
             AmountTextField = new JTextField(menuItem.getAmount() + "", 50);
             AmountTextField.setEditable(false);
             add(AmountTextField);
             AmountTextField.setBounds(53, 120, 40, 30);
 
-            //개수 줄이기 버튼
+            // 개수 줄이기 버튼
             MinusButton = new JButton("-");
             add(MinusButton);
             MinusButton.setBounds(5, 120, 45, 30);
@@ -212,7 +216,7 @@ public class CafeGUI extends JFrame {
 
                 }
                 public void updateorder(){
-                    System.out.println("------------------");
+                    System.out.println("-------장바구니-------");
                     // 기존에 있던 패널을 삭제한다.
                     remove(panel);
                     panel = new JPanel();
