@@ -60,25 +60,6 @@ public class FileHandler {
         }
     }
 
-    // 파일에서 모든 고객 정보를 불러오는 메서드
-    @Deprecated
-    public List<Customer> loadAllCustomerInfo() {
-        List<Customer> customers = new ArrayList<>();
-        try (FileReader reader = new FileReader(filePath);
-             BufferedReader bufferedReader = new BufferedReader(reader)) {
-
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                // 문자열을 쉼표로 분리하여 Customer 객체 생성
-                String[] parts = line.split(",");
-                customers.add(new Customer(parts[0], parts[1]));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return customers;
-    }
-
     // 파일에서 재고 정보를 읽어서 List<MenuItem> 객체를 반환
     @Deprecated
     public List<MenuItem> loadInventory() {
