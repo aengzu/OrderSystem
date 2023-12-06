@@ -27,12 +27,14 @@ public class CafeManager {
         return totalSales;
     }
 
-    // 주문을 추가하는 메소드
-    public void addOrder(Order order) {
-       this.orders.add(order);
+    // 메뉴 아이템별 판매 수량을 반환하는 메소드
+    public int getSalesCount(MenuItem item) {
+        int count = 0;
+        for (Order order : orders) {
+            count += order.getCount(item);
+        }
+        return count;
     }
-
-
 
     // getter 메소드
     public List<MenuItem> getMenu() {
