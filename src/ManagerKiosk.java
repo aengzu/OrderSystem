@@ -13,18 +13,16 @@ public class ManagerKiosk extends JFrame {
     Menu menu;
     private List<MenuItem> items;
     private final String CUSTOMER_INFO_FILE_NAME = "CustomerInfo.text";
+    private final String INVENTORY_FILE_NAME="Inventory.txt";
 
-    public ManagerKiosk(List<MenuItem> items) {
-        this.items = items;
 
-        // ...
-    }
     public List<MenuItem> getMenuItems() {
         return this.items;
     }
 
     public ManagerKiosk() {
         menu = new Menu();
+        this.items = this.getInventoryListFromFile();
         setTitle("매니저 전용 키오스크");
         setSize(1000, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -238,20 +236,31 @@ public class ManagerKiosk extends JFrame {
         return list;
     }
 
+    // 파일에서 재고 정보를 읽어서 List<MenuItem> 객체를 반환
+    private List<MenuItem> getInventoryListFromFile(){
+        List<MenuItem> items = new ArrayList<>();
+        FileHandler fileHandler = new FileHandler(INVENTORY_FILE_NAME);
+        String rawString = fileHandler.readFile(INVENTORY_FILE_NAME);
+
+        String[] strings = rawString.split("\n");
+        for(String str : strings){
+            String[] parts = str.split(",");
+            String name = parts[0];
+            int price = Integer.parseInt(parts[1]);
+            int inventory = Integer.parseInt(parts[2]);
+            items.add(new MenuItem(name, price, inventory));
+        }
+        return items;
+    }
+
     public static void main(String[] args) {
         new ManagerKiosk();
-        FileHandler fileHandler2 = new FileHandler("Inventory.txt");
+        FileHandler fileHandler = new FileHandler("Inventory.txt");
 
         Menu menu = new Menu();
 
-        // 재고 정보 불러오기
-        List<MenuItem> items = fileHandler2.loadInventory();
-
-        // ManagerKiosk 인스턴스 생성
-        ManagerKiosk managerKiosk = new ManagerKiosk(items);
-
         // 프로그램 종료 시 재고 정보 저장
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> fileHandler2.saveInventory(managerKiosk.getMenuItems())));
+        //Runtime.getRuntime().addShutdownHook(new Thread(() -> fileHandler2.saveInventory(managerKiosk.getMenuItems())));
 
     }
 }

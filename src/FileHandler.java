@@ -60,26 +60,6 @@ public class FileHandler {
         }
     }
 
-    // 파일에서 재고 정보를 읽어서 List<MenuItem> 객체를 반환
-    @Deprecated
-    public List<MenuItem> loadInventory() {
-        List<MenuItem> items = new ArrayList<>();
-
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
-                String name = parts[0];
-                int price = Integer.parseInt(parts[1]);
-                int inventory = Integer.parseInt(parts[2]);
-                items.add(new MenuItem(name, price, inventory));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return items;
-    }
 
     // List<MenuItem> 객체의 재고 정보를 파일에 저장
     @Deprecated
