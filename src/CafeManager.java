@@ -36,6 +36,7 @@ public class CafeManager {
         return count;
     }
 
+
     // getter 메소드
     public List<MenuItem> getMenu() {
         return this.menu;
