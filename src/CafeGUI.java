@@ -36,7 +36,6 @@ public class CafeGUI extends JFrame {
             setLayout(null);
             //메뉴를 선택할 수 있는 패널
             menu_panel = new MenuPanel();
-
             //스크롤 기능
             menu_panel.setPreferredSize(new Dimension(630,900));
             JScrollPane scroll = new JScrollPane(menu_panel);

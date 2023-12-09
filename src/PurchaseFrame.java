@@ -57,9 +57,6 @@ class PurchasePanel extends JPanel {
         CancelButton.addActionListener(e -> {
             dispose();
             new CafeGUI();
-            //cardlayout.previous(cPane);
-            //CardButton.setBackground(null);
-            //CashButton.setBackground(null);
         });
         add(CancelButton);
 
@@ -112,10 +109,8 @@ class PurchasePanel extends JPanel {
                 add(dialog);
             }
         });
-
         add(PurchaseButton2);
         PurchaseButton2.setBounds(360, 430, 180, 50);
-
 
         setVisible(true);
     }
@@ -131,13 +126,8 @@ class PurchasingPanel extends JPanel{
         add(purchasingLabel = new JLabel("결제 중..."));
         purchasingLabel.setFont(new Font("Dialog", Font.PLAIN, 50));
         purchasingLabel.setBounds(350, 300, 250, 50);
-
-
     }
-
     //결제 대기 시간을 구현하고 화면을 움직이는 쓰레드
-
-
     }
 
 //결제 완료 화면
@@ -180,13 +170,9 @@ class CompletePanel extends JPanel {
     }
 }
     class PurchasingThread extends Thread {
-
         public void run() {
             for(int i=0;i<2;i++){
                 purchasingLabel.setText("결제 중.");
-
-
-
                 try{Thread.sleep(500);}catch(InterruptedException e){}
                 purchasingLabel.setText("결제 중..");
                 try{Thread.sleep(500);}catch(InterruptedException e){}
@@ -195,7 +181,8 @@ class CompletePanel extends JPanel {
             }
             if(purchaseType == PurchaseType.CARD){
                 payment.payByCreditCard();
-            } else if(purchaseType == PurchaseType.CASH){
+            }
+            else {
                 payment.payByCash();
             }
             cardlayout.next(cPane);
