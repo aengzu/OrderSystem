@@ -34,12 +34,14 @@ public class CafeGUI extends JFrame {
         public MainPanel() {
 
             setLayout(null);
-            // setSize(800, 600);
             //메뉴를 선택할 수 있는 패널
             menu_panel = new MenuPanel();
-            // TODO: 스크롤 기능 구현해야함
+            //스크롤 기능
+            menu_panel.setPreferredSize(new Dimension(630,900));
             JScrollPane scroll = new JScrollPane(menu_panel);
             scroll.setBounds(50, 80, 630, 450);
+            scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+            scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             add(scroll);
 
             //장바구니, 결제 버튼이 담긴 패널
@@ -261,6 +263,7 @@ public class CafeGUI extends JFrame {
             }
 
         public static void main(String[] args) {
+
             new CafeGUI();
         }
     }

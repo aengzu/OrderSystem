@@ -11,11 +11,18 @@ public class PurchaseFrame extends JFrame {
     private Container cPane;
     private JLabel purchasingLabel;
     private int orderNum;
+    private PurchaseType purchaseType = PurchaseType.NONE;
+
+    private enum PurchaseType{
+        CASH,CARD,NONE;
+    }
+    private Payment payment;
 
 
 
     public PurchaseFrame(Payment payment) {
         this.orderNum = payment.getOrder().getOrderNum();
+        this.payment = payment;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         add(purchase_panel = new PurchasePanel());
@@ -50,9 +57,6 @@ class PurchasePanel extends JPanel {
         CancelButton.addActionListener(e -> {
             dispose();
             new CafeGUI();
-            //cardlayout.previous(cPane);
-            //CardButton.setBackground(null);
-            //CashButton.setBackground(null);
         });
         add(CancelButton);
 
@@ -67,9 +71,11 @@ class PurchasePanel extends JPanel {
                 if (e.getSource() == CardButton) {
                     CardButton.setBackground(Color.ORANGE);
                     CashButton.setBackground(null);
+                    purchaseType = PurchaseType.CARD;
                 } else if (e.getSource() == CashButton) {
                     CardButton.setBackground(null);
                     CashButton.setBackground(Color.ORANGE);
+                    purchaseType = PurchaseType.NONE;
                 }
             }
         });
@@ -79,9 +85,11 @@ class PurchasePanel extends JPanel {
                 if (e.getSource() == CardButton) {
                     CardButton.setBackground(Color.ORANGE);
                     CashButton.setBackground(null);
+                    purchaseType = PurchaseType.CASH;
                 } else if (e.getSource() == CashButton) {
                     CardButton.setBackground(null);
                     CashButton.setBackground(Color.ORANGE);
+                    purchaseType = PurchaseType.NONE;
                 }
             }
         });
@@ -101,10 +109,8 @@ class PurchasePanel extends JPanel {
                 add(dialog);
             }
         });
-
         add(PurchaseButton2);
         PurchaseButton2.setBounds(360, 430, 180, 50);
-
 
         setVisible(true);
     }
@@ -120,13 +126,8 @@ class PurchasingPanel extends JPanel{
         add(purchasingLabel = new JLabel("결제 중..."));
         purchasingLabel.setFont(new Font("Dialog", Font.PLAIN, 50));
         purchasingLabel.setBounds(350, 300, 250, 50);
-
-
     }
-
     //결제 대기 시간을 구현하고 화면을 움직이는 쓰레드
-
-
     }
 
 //결제 완료 화면
@@ -177,6 +178,12 @@ class CompletePanel extends JPanel {
                 try{Thread.sleep(500);}catch(InterruptedException e){}
                 purchasingLabel.setText("결제 중...");
                 try{Thread.sleep(500);}catch(InterruptedException e){}
+            }
+            if(purchaseType == PurchaseType.CARD){
+                payment.payByCreditCard();
+            }
+            else {
+                payment.payByCash();
             }
             cardlayout.next(cPane);
             ReturnButton.setVisible(true);

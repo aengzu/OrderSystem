@@ -18,15 +18,6 @@ public class CafeManager {
         }
     }
 
-    // 일일 매출을 확인하는 메소드
-    public int checkDailySales() {
-        int totalSales = 0;
-        for (Order order : orders) {
-            totalSales += order.calculateTotal();
-        }
-        return totalSales;
-    }
-
     // 메뉴 아이템별 판매 수량을 반환하는 메소드
     public int getSalesCount(MenuItem item) {
         int count = 0;
@@ -35,6 +26,7 @@ public class CafeManager {
         }
         return count;
     }
+
 
     // getter 메소드
     public List<MenuItem> getMenu() {
