@@ -11,11 +11,18 @@ public class PurchaseFrame extends JFrame {
     private Container cPane;
     private JLabel purchasingLabel;
     private int orderNum;
+    private PurchaseType purchaseType = PurchaseType.NONE;
+
+    private enum PurchaseType{
+        CASH,CARD,NONE;
+    }
+    private Payment payment;
 
 
 
     public PurchaseFrame(Payment payment) {
         this.orderNum = payment.getOrder().getOrderNum();
+        this.payment = payment;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         add(purchase_panel = new PurchasePanel());
@@ -67,9 +74,11 @@ class PurchasePanel extends JPanel {
                 if (e.getSource() == CardButton) {
                     CardButton.setBackground(Color.ORANGE);
                     CashButton.setBackground(null);
+                    purchaseType = PurchaseType.CARD;
                 } else if (e.getSource() == CashButton) {
                     CardButton.setBackground(null);
                     CashButton.setBackground(Color.ORANGE);
+                    purchaseType = PurchaseType.NONE;
                 }
             }
         });
@@ -79,9 +88,11 @@ class PurchasePanel extends JPanel {
                 if (e.getSource() == CardButton) {
                     CardButton.setBackground(Color.ORANGE);
                     CashButton.setBackground(null);
+                    purchaseType = PurchaseType.CASH;
                 } else if (e.getSource() == CashButton) {
                     CardButton.setBackground(null);
                     CashButton.setBackground(Color.ORANGE);
+                    purchaseType = PurchaseType.NONE;
                 }
             }
         });
@@ -169,14 +180,23 @@ class CompletePanel extends JPanel {
     }
 }
     class PurchasingThread extends Thread {
+
         public void run() {
             for(int i=0;i<2;i++){
                 purchasingLabel.setText("결제 중.");
+
+
+
                 try{Thread.sleep(500);}catch(InterruptedException e){}
                 purchasingLabel.setText("결제 중..");
                 try{Thread.sleep(500);}catch(InterruptedException e){}
                 purchasingLabel.setText("결제 중...");
                 try{Thread.sleep(500);}catch(InterruptedException e){}
+            }
+            if(purchaseType == PurchaseType.CARD){
+                payment.payByCreditCard();
+            } else if(purchaseType == PurchaseType.CASH){
+                payment.payByCash();
             }
             cardlayout.next(cPane);
             ReturnButton.setVisible(true);

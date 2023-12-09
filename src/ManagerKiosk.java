@@ -6,14 +6,17 @@ import java.util.List;
 
 public class ManagerKiosk extends JFrame {
     CafeManager cafeManager = new CafeManager();
-    FileHandler fileHandler = new FileHandler("CustomerInfo.text"); // 고객 정보를 불러오는 FileHandler 인스턴스
-    FileHandler fileHandler2 = new FileHandler("Inventory.txt"); // 재고 정보를 불러오는 FileHandler 인스턴스    // 재고 정보 불러오기
+    Menu menu;
+    Payment payment;
     private JPanel soldOutPanel; // 품절 표시된 항목을 보여줄 패널
     private JTextField salesField; // 매출 금액을 보여줄 텍스트 필드
-    Menu menu;
+
     private List<MenuItem> items;
-    private final String CUSTOMER_INFO_FILE_NAME = "CustomerInfo.text";
-    private final String INVENTORY_FILE_NAME="Inventory.txt";
+    private final String CUSTOMER_INFO_FILE_NAME = "CustomerInfo.text"; // 고객 정보 파일
+    private final String INVENTORY_FILE_NAME="Inventory.txt"; // 재고 정보 파일
+    private final String PAYMENT_FILE_NAME = "Sale.txt"; // 매출 정보 파일
+    private JButton buttonShowInventory;
+
 
 
     public List<MenuItem> getMenuItems() {
@@ -33,7 +36,7 @@ public class ManagerKiosk extends JFrame {
 
         // 카테고리 패널 설정
         JPanel categoryPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        String[] categories = {"커피", "라떼", "에이드/스무디", "티"};
+        String[] categories = {"전체 메뉴 보기"};
 
         // 고객 모드로 전환하는 버튼 추가
         JButton switchModeButton = new JButton("고객 화면");
@@ -55,10 +58,7 @@ public class ManagerKiosk extends JFrame {
         mainPanel.add(cardPanel, BorderLayout.CENTER);
 
         // 각 카테고리에 대한 패널 추가
-        cardPanel.add(createMenuPanel(menu.getItems()), "커피");
-        cardPanel.add(createMenuPanel(menu.getItems()), "라떼");
-        cardPanel.add(createMenuPanel(menu.getItems()), "에이드/스무디");
-        cardPanel.add(createMenuPanel(menu.getItems()), "티");
+        cardPanel.add(createMenuPanel(menu.getItems()), "전체 메뉴 보기");
 
         // 카테고리 버튼 설정 및 액션 리스너 추가
         for (String category : categories) {
@@ -105,6 +105,13 @@ public class ManagerKiosk extends JFrame {
         customerInfoButton.setForeground(Color.WHITE);
         customerInfoButton.addActionListener(e -> showAllCustomerInfo());
         categoryPanel.add(customerInfoButton);
+
+        //재고 정보 출력 버튼 추가
+        buttonShowInventory = new JButton("Show Inventory");
+        buttonShowInventory.setBackground(Color.GREEN);
+        buttonShowInventory.setForeground(Color.WHITE);
+        buttonShowInventory.addActionListener(e -> getInventoryListFromFile());
+        categoryPanel.add(buttonShowInventory);
     }
 
     // 각 카테고리 별 메뉴 패널 생성
@@ -149,8 +156,6 @@ public class ManagerKiosk extends JFrame {
                 button.setBackground(Color.RED);
                 removeSoldOutItem(item.getName()); // 품절 항목 제거
             }
-//            // 재고 정보 저장
-//            fileHandler2.saveInventory(getMenuItems());
         }
     }
 
@@ -187,12 +192,9 @@ public class ManagerKiosk extends JFrame {
 
         // 메뉴 항목 추가
         addMenuItemsToPanel(menu.getItems(), menuPanel);
-        addMenuItemsToPanel(menu.getItems(), menuPanel);
-        addMenuItemsToPanel(menu.getItems(), menuPanel);
-        addMenuItemsToPanel(menu.getItems(), menuPanel);
 
         // 하루 매출을 표시할 레이블
-        JLabel totalSalesLabel = new JLabel("하루 매출: " + cafeManager.checkDailySales() + "원"); // CafeManager의 메소드 호출
+        JLabel totalSalesLabel = new JLabel("하루 매출: " + 1000 + "원"); // CafeManager의 메소드 호출
         totalSalesLabel.setHorizontalAlignment(JLabel.CENTER);
 
         detailsPanel.add(new JScrollPane(menuPanel), BorderLayout.CENTER);
@@ -256,11 +258,7 @@ public class ManagerKiosk extends JFrame {
     public static void main(String[] args) {
         new ManagerKiosk();
         FileHandler fileHandler = new FileHandler("Inventory.txt");
-
         Menu menu = new Menu();
-
-        // 프로그램 종료 시 재고 정보 저장
-        //Runtime.getRuntime().addShutdownHook(new Thread(() -> fileHandler2.saveInventory(managerKiosk.getMenuItems())));
 
     }
 }
